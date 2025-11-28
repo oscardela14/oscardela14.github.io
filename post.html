@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading... | rana04041's Blog</title>
+  <meta name="description" content="rana04041's 개발 블로그">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/prism.css">
+  
+  <!-- marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+  
+  <!-- Prism.js for code highlighting -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <a href="index.html" class="logo">rana04041's Blog</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="테마 전환">
+          <span class="theme-icon sun">☀️</span>
+          <span class="theme-icon moon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main post-main">
+      <!-- Back Link -->
+      <nav class="post-nav">
+        <a href="index.html" class="back-link">← 목록으로</a>
+      </nav>
+
+      <!-- Post Header -->
+      <article class="post-article">
+        <header class="post-header">
+          <h1 id="post-title" class="post-title">Loading...</h1>
+          <div class="post-meta">
+            <time id="post-date" class="post-date"></time>
+            <span id="post-category" class="post-category"></span>
+          </div>
+          <div id="post-tags" class="post-tags">
+            <!-- Tags will be rendered here -->
+          </div>
+        </header>
+
+        <!-- Post Content -->
+        <div id="post-content" class="post-content">
+          <div class="loading">게시글을 불러오는 중...</div>
+        </div>
+      </article>
+
+      <!-- Giscus Comments -->
+      <section class="comments-section">
+        <h2 class="comments-title">댓글</h2>
+        <div id="giscus-container" class="giscus"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2025 rana04041's Blog. Powered by GitHub Pages.</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/theme.js"></script>
+  <script src="js/post-loader.js"></script>
+</body>
+</html>
+
+
