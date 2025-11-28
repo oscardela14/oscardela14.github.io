@@ -166,7 +166,7 @@
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'rana04041/rana04041.github.io');
+    script.setAttribute('data-repo', 'oscardela14/oscardela14.github.io');
     script.setAttribute('data-repo-id', 'YOUR_REPO_ID'); // TODO: Giscus 설정 후 교체
     script.setAttribute('data-category', 'General');
     script.setAttribute('data-category-id', 'YOUR_CATEGORY_ID'); // TODO: Giscus 설정 후 교체
