@@ -132,7 +132,7 @@
     // 제목
     const title = metadata.title || filename.replace('.md', '');
     if (titleEl) titleEl.textContent = title;
-    document.title = `${title} | rana04041's Blog`;
+    document.title = `${title} | 지용이의 블로그`;
 
     // 날짜
     if (dateEl && metadata.date) {
@@ -167,9 +167,9 @@
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
     script.setAttribute('data-repo', 'oscardela14/oscardela14.github.io');
-    script.setAttribute('data-repo-id', 'YOUR_REPO_ID'); // TODO: Giscus 설정 후 교체
+    script.setAttribute('data-repo-id', 'R_kgDOQeng7Q');
     script.setAttribute('data-category', 'General');
-    script.setAttribute('data-category-id', 'YOUR_CATEGORY_ID'); // TODO: Giscus 설정 후 교체
+    script.setAttribute('data-category-id', 'DIC_kwDOQeng7c4CzJir');
     script.setAttribute('data-mapping', 'pathname');
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');
@@ -196,7 +196,7 @@
       `;
     }
     if (titleEl) titleEl.textContent = '오류';
-    document.title = '오류 | rana04041\'s Blog';
+    document.title = '오류 | 지용이의 블로그';
   }
 
   /**
