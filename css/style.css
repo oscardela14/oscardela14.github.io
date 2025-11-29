@@ -87,7 +87,7 @@ body {
 
 
 /* ========================================
-   Background - White Theme (이미지 추가 대기)
+   Background - 셔틀콕 패턴 (Yonex Style)
    ======================================== */
 .bg-wrapper {
   position: fixed;
@@ -106,11 +106,21 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* 이미지 URL을 여기에 추가 예정 */
-  background-image: none;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #fafafa;
+  /* 셔틀콕 패턴 SVG */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23e53935' stroke-width='0.5' opacity='0.15'%3E%3Cellipse cx='30' cy='20' rx='8' ry='12'/%3E%3Cpath d='M22 20 Q30 35 38 20'/%3E%3Cline x1='30' y1='32' x2='30' y2='45'/%3E%3Ccircle cx='30' cy='48' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  background-repeat: repeat;
+  animation: floatPattern 30s ease-in-out infinite;
+}
+
+@keyframes floatPattern {
+  0%, 100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 40px 40px;
+  }
 }
 
 .bg-overlay {
@@ -119,7 +129,19 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #ffffff;
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(250,250,250,0.9) 100%);
+}
+
+/* 요넥스 스타일 상단 악센트 라인 */
+.bg-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #e53935 0%, #ff5252 50%, #e53935 100%);
+  z-index: 10;
 }
 
 a {
