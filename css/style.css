@@ -106,21 +106,11 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff5f5;
-  /* 셔틀콕 패턴 SVG - 더 선명하게 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23e53935' stroke-width='1.5' opacity='0.25'%3E%3Cellipse cx='40' cy='25' rx='12' ry='18'/%3E%3Cpath d='M28 25 Q40 48 52 25'/%3E%3Cline x1='40' y1='43' x2='40' y2='60'/%3E%3Ccircle cx='40' cy='65' r='5' fill='%23e53935' fill-opacity='0.2'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 100px 100px;
-  background-repeat: repeat;
-  animation: floatPattern 40s ease-in-out infinite;
-}
-
-@keyframes floatPattern {
-  0%, 100% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 50px 50px;
-  }
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .bg-overlay {
@@ -129,19 +119,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,250,250,0.6) 100%);
-}
-
-/* 요넥스 스타일 상단 악센트 라인 */
-.bg-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #e53935 0%, #ff5252 50%, #e53935 100%);
-  z-index: 10;
+  background: linear-gradient(135deg, rgba(0,77,77,0.75) 0%, rgba(0,50,50,0.8) 100%);
 }
 
 a {
