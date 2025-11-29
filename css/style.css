@@ -157,13 +157,12 @@ img {
    ======================================== */
 .header {
   padding: var(--spacing-lg) 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: none;
   margin-bottom: var(--spacing-xl);
-  background: rgba(255, 255, 255, 0.9);
+  background: transparent;
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
 }
 
 .header-content {
@@ -175,8 +174,9 @@ img {
 .logo {
   font-size: 1.6rem;
   font-weight: 800;
-  color: #1f2328;
+  color: #ffffff;
   letter-spacing: -0.03em;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   text-transform: uppercase;
   background: linear-gradient(135deg, #0969da 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
@@ -521,12 +521,13 @@ img {
   display: inline-flex;
   align-items: center;
   font-size: 0.95rem;
-  color: #6b7280;
+  color: #1f2937;
+  font-weight: 600;
   transition: color var(--transition-fast);
 }
 
 .back-link:hover {
-  color: #3b82f6;
+  color: #000000;
 }
 
 .post-article {
