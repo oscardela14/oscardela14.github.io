@@ -28,15 +28,20 @@
       content = content.slice(1);
     }
 
-    const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+    // 더 유연한 정규식: 줄바꿈 형식에 관계없이 동작
+    const match = content.match(/^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]+([\s\S]*)$/);
     
     if (!match) {
+      console.log('Front matter를 찾을 수 없습니다. 전체 내용을 표시합니다.');
       return { metadata: {}, content };
     }
 
     const frontMatter = match[1];
     const postContent = match[2];
     const metadata = {};
+    
+    console.log('Front matter 파싱 완료:', frontMatter.substring(0, 50) + '...');
+    console.log('본문 길이:', postContent.length, '자');
 
     // 라인별 파싱
     frontMatter.split(/\r?\n/).forEach(line => {
@@ -102,18 +107,189 @@
   function renderMarkdown(markdown) {
     if (typeof marked === 'undefined') {
       console.error('marked.js가 로드되지 않았습니다.');
-      return markdown;
+      return `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
     }
 
-    // marked 설정
-    marked.setOptions({
-      breaks: true,
-      gfm: true,
-      headerIds: true,
-      mangle: false
+    try {
+      if (marked.setOptions) {
+        marked.setOptions({
+          breaks: true,
+          gfm: true
+        });
+      }
+
+      if (typeof marked.parse === 'function') {
+        return marked.parse(markdown);
+      } else if (typeof marked === 'function') {
+        return marked(markdown);
+      }
+      
+      return markdown;
+    } catch (error) {
+      console.error('마크다운 파싱 오류:', error);
+      return `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
+    }
+  }
+
+  /**
+   * 콘텐츠를 아코디언 섹션으로 변환
+   */
+  function convertToAccordion(html) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    
+    const children = Array.from(tempDiv.children);
+    let sections = [];
+    let currentSection = null;
+    let introContent = [];
+    let foundFirstH2 = false;
+
+    children.forEach(child => {
+      if (child.tagName === 'H2') {
+        foundFirstH2 = true;
+        if (currentSection) {
+          sections.push(currentSection);
+        }
+        // 섹션 제목에서 키워드 추출
+        const titleText = child.textContent || '';
+        const linkEl = child.querySelector('a');
+        const linkUrl = linkEl ? linkEl.href : null;
+        let sectionId = '';
+        
+        // 배드민턴 브랜드
+        if (titleText.includes('요넥스') || titleText.includes('YONEX')) sectionId = 'yonex';
+        else if (titleText.includes('빅터') || titleText.includes('VICTOR')) sectionId = 'victor';
+        else if (titleText.includes('리닝') || titleText.includes('Li-Ning')) sectionId = 'lining';
+        else if (titleText.includes('기타')) sectionId = 'other';
+        else if (titleText.includes('비교')) sectionId = 'compare';
+        else if (titleText.includes('구매')) sectionId = 'tips';
+        // UFC 섹션
+        else if (titleText.includes('챔피언') || titleText.includes('Champion')) sectionId = 'champion';
+        else if (titleText.includes('UFC 322')) sectionId = 'ufc322';
+        else if (titleText.includes('카타르') || titleText.includes('Qatar')) sectionId = 'qatar';
+        else if (titleText.includes('2026') || titleText.includes('빅매치')) sectionId = 'bigmatch';
+        else if (titleText.includes('주목') || titleText.includes('선수')) sectionId = 'players';
+        else if (titleText.includes('요약') || titleText.includes('Summary')) sectionId = 'summary';
+        else if (titleText.includes('마무리') || titleText.includes('결론')) sectionId = 'conclusion';
+        else sectionId = 'section-' + sections.length;
+
+        currentSection = {
+          id: sectionId,
+          title: child.outerHTML,
+          titleText: titleText,
+          linkUrl: linkUrl,
+          content: []
+        };
+      } else if (currentSection) {
+        currentSection.content.push(child.outerHTML);
+      } else if (!foundFirstH2) {
+        introContent.push(child.outerHTML);
+      }
     });
 
-    return marked.parse(markdown);
+    if (currentSection) {
+      sections.push(currentSection);
+    }
+
+    // 아코디언 HTML 생성
+    let accordionHTML = '';
+    
+    // 인트로 콘텐츠
+    if (introContent.length > 0) {
+      accordionHTML += `<div class="post-intro">${introContent.join('')}</div>`;
+    }
+
+    // 아코디언 섹션
+    if (sections.length > 0) {
+      accordionHTML += '<div class="accordion-container">';
+      sections.forEach((section, index) => {
+        const isOpen = index === 0 ? 'open' : '';
+        const hasLink = section.linkUrl ? true : false;
+        
+        // 링크 버튼은 콘텐츠 내부에 표시 (브랜드명 포함)
+        const linkButton = hasLink ? `
+          <div class="accordion-link-wrapper">
+            <a href="${section.linkUrl}" target="_blank" class="accordion-link-btn">
+              🔗 ${section.titleText} 바로가기
+            </a>
+          </div>
+        ` : '';
+        
+        accordionHTML += `
+          <div class="accordion-item ${isOpen}" data-section="${section.id}">
+            <button class="accordion-header" aria-expanded="${index === 0}">
+              <span class="accordion-title">${section.titleText}</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content">
+              ${linkButton}
+              ${section.content.join('')}
+            </div>
+          </div>
+        `;
+      });
+      accordionHTML += '</div>';
+    }
+
+    return accordionHTML;
+  }
+
+  /**
+   * 아코디언 이벤트 초기화
+   */
+  function initAccordion() {
+    // 아코디언 헤더 클릭 이벤트
+    const headers = document.querySelectorAll('.accordion-header');
+    headers.forEach(header => {
+      header.addEventListener('click', (e) => {
+        const item = header.parentElement;
+        const isOpen = item.classList.contains('open');
+        
+        // 현재 항목 토글
+        item.classList.toggle('open');
+        header.setAttribute('aria-expanded', !isOpen);
+      });
+    });
+
+    // 태그 클릭으로 아코디언 열기
+    const tags = document.querySelectorAll('#post-tags .tag');
+    tags.forEach(tag => {
+      tag.style.cursor = 'pointer';
+      tag.addEventListener('click', () => {
+        const tagText = tag.textContent.trim();
+        let targetId = '';
+        
+        // 배드민턴 태그
+        if (tagText === '요넥스') targetId = 'yonex';
+        else if (tagText === '빅터') targetId = 'victor';
+        else if (tagText === '리닝') targetId = 'lining';
+        else if (tagText === '기타 주목할 브랜드') targetId = 'other';
+        else if (tagText === '브랜드별 비교정리') targetId = 'compare';
+        else if (tagText === '구매팁') targetId = 'tips';
+        else if (tagText === '기타') targetId = 'conclusion';
+        // UFC 태그
+        else if (tagText === '챔피언 소식') targetId = 'champion';
+        else if (tagText === 'UFC 322') targetId = 'ufc322';
+        else if (tagText === '카타르') targetId = 'qatar';
+        else if (tagText === '2026년 빅매치') targetId = 'bigmatch';
+        else if (tagText === '주목할 선수들') targetId = 'players';
+        else if (tagText === 'UFC 요약') targetId = 'summary';
+        else if (tagText === '마무리') targetId = 'conclusion';
+        
+        if (targetId) {
+          const targetItem = document.querySelector(`.accordion-item[data-section="${targetId}"]`);
+          if (targetItem) {
+            // 해당 섹션 열기
+            if (!targetItem.classList.contains('open')) {
+              targetItem.classList.add('open');
+              targetItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'true');
+            }
+            // 스크롤
+            targetItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
   }
 
   /**
@@ -200,14 +376,38 @@
   }
 
   /**
+   * 최신 게시글 파일명 가져오기
+   */
+  async function getLatestPostFile() {
+    try {
+      const response = await fetch('posts.json');
+      if (response.ok) {
+        const posts = await response.json();
+        if (posts.length > 0) {
+          return posts[0].file; // 최신 게시글
+        }
+      }
+    } catch (e) {
+      console.error('posts.json 로딩 실패:', e);
+    }
+    return null;
+  }
+
+  /**
    * 게시글 로드
    */
   async function loadPost() {
-    const filename = getFileParam();
+    let filename = getFileParam();
 
+    // 파일 파라미터가 없으면 최신 게시글 로드
     if (!filename) {
-      showError('게시글 파일이 지정되지 않았습니다.');
-      return;
+      filename = await getLatestPostFile();
+      if (!filename) {
+        showError('게시글을 찾을 수 없습니다.');
+        return;
+      }
+      // URL 업데이트 (히스토리에 추가하지 않음)
+      window.history.replaceState({}, '', `post.html?file=${filename}`);
     }
 
     try {
@@ -225,8 +425,12 @@
 
       // 마크다운 변환 및 렌더링
       if (contentEl) {
-        contentEl.innerHTML = renderMarkdown(content);
+        const htmlContent = renderMarkdown(content);
+        // 아코디언 형태로 변환
+        contentEl.innerHTML = convertToAccordion(htmlContent);
         highlightCode();
+        // 아코디언 이벤트 초기화
+        initAccordion();
       }
 
       // Giscus 로드

@@ -63,24 +63,48 @@
   }
 
   /**
-   * 게시글 카드 HTML 생성
+   * 카테고리별 아이콘 매핑
+   */
+  function getCategoryIcon(category) {
+    const icons = {
+      '스포츠': '🏸',
+      '개발': '💻',
+      '공지': '📢',
+      '기술': '⚙️',
+      '리뷰': '📝',
+      'Announcement': '📢',
+      'Development': '💻'
+    };
+    return icons[category] || '📄';
+  }
+
+  /**
+   * 게시글 카드 HTML 생성 - YONEX Style
    */
   function createPostCard(post) {
     const tagsHTML = Array.isArray(post.tags)
-      ? post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')
+      ? post.tags.slice(0, 3).map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('')
       : '';
+    
+    const categoryAttr = post.category ? `data-category="${escapeHTML(post.category)}"` : '';
+    const icon = getCategoryIcon(post.category);
 
     return `
-      <article class="post-card">
-        <h2 class="post-card-title">
-          <a href="post.html?file=${encodeURIComponent(post.file)}">${escapeHTML(post.title)}</a>
-        </h2>
-        <div class="post-card-meta">
-          <time datetime="${post.date}">${formatDate(post.date)}</time>
-          ${post.category ? `<span class="post-category">${escapeHTML(post.category)}</span>` : ''}
+      <article class="post-card" ${categoryAttr} onclick="window.location.href='post.html?file=${encodeURIComponent(post.file)}'">
+        <div class="post-card-visual">${icon}</div>
+        <div class="post-card-inner">
+          <div class="post-card-header">
+            ${post.category ? `<span class="post-card-category">${escapeHTML(post.category)}</span>` : ''}
+            <time class="post-card-date" datetime="${post.date}">${formatDate(post.date)}</time>
+          </div>
+          <div class="post-card-footer">
+            <h2 class="post-card-title">
+              <a href="post.html?file=${encodeURIComponent(post.file)}">${escapeHTML(post.title)}</a>
+            </h2>
+            ${post.excerpt ? `<p class="post-card-excerpt">${escapeHTML(post.excerpt)}</p>` : ''}
+            ${tagsHTML ? `<div class="post-card-tags">${tagsHTML}</div>` : ''}
+          </div>
         </div>
-        ${post.excerpt ? `<p class="post-card-excerpt">${escapeHTML(post.excerpt)}</p>` : ''}
-        ${tagsHTML ? `<div class="post-card-tags">${tagsHTML}</div>` : ''}
       </article>
     `;
   }
@@ -124,12 +148,12 @@
   }
 
   /**
-   * 태그 필터 렌더링
+   * 태그 필터 렌더링 - "전체" 버튼만 표시
    */
   function renderTags() {
-    if (!tagsContainer || allTags.size === 0) return;
+    if (!tagsContainer) return;
 
-    // 전체 보기 버튼 + 각 태그 버튼
+    // 전체 보기 버튼만 표시
     const allButton = `
       <button class="tag ${!activeTag ? 'active' : ''}" data-tag="">
         전체
@@ -137,12 +161,7 @@
       </button>
     `;
 
-    const tagButtons = Array.from(allTags.entries())
-      .sort((a, b) => b[1] - a[1]) // count 내림차순
-      .map(([tag, count]) => createTagButton(tag, count, activeTag === tag))
-      .join('');
-
-    tagsContainer.innerHTML = allButton + tagButtons;
+    tagsContainer.innerHTML = allButton;
 
     // 태그 클릭 이벤트
     tagsContainer.querySelectorAll('.tag').forEach(button => {

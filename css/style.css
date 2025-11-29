@@ -81,6 +81,45 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   transition: background-color var(--transition-normal), color var(--transition-normal);
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+/* ========================================
+   Background - White Theme (이미지 추가 대기)
+   ======================================== */
+.bg-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 이미지 URL을 여기에 추가 예정 */
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
 }
 
 a {
@@ -102,12 +141,15 @@ img {
    Layout
    ======================================== */
 .container {
-  max-width: var(--container-width);
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: transparent;
 }
 
 /* ========================================
@@ -115,8 +157,13 @@ img {
    ======================================== */
 .header {
   padding: var(--spacing-lg) 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #e5e7eb;
   margin-bottom: var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
 }
 
 .header-content {
@@ -126,20 +173,25 @@ img {
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1f2328;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #0969da 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .logo:hover {
-  color: var(--accent);
+  opacity: 0.8;
 }
 
 /* Theme Toggle */
 .theme-toggle {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
   border-radius: var(--radius-md);
   padding: var(--spacing-sm) var(--spacing-md);
   cursor: pointer;
@@ -150,8 +202,8 @@ img {
 }
 
 .theme-toggle:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--accent);
+  background: #e5e7eb;
+  border-color: #3b82f6;
 }
 
 .theme-icon {
@@ -193,38 +245,46 @@ img {
 
 .search-wrapper {
   position: relative;
+  max-width: 500px;
 }
 
 .search-input {
   width: 100%;
-  padding: var(--spacing-md) var(--spacing-lg);
-  padding-left: 3rem;
+  padding: 14px 20px;
+  padding-left: 50px;
   font-size: 1rem;
   font-family: var(--font-sans);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  color: var(--text-primary);
-  transition: all var(--transition-fast);
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 50px;
+  color: #1f2328;
+  transition: all 0.3s ease;
 }
 
 .search-input::placeholder {
-  color: var(--text-muted);
+  color: #9ca3af;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--tag-bg);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  background: #ffffff;
 }
 
 .search-icon {
   position: absolute;
-  left: var(--spacing-md);
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.1rem;
-  opacity: 0.6;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.search-input:focus + .search-icon,
+.search-wrapper:hover .search-icon {
+  opacity: 1;
 }
 
 /* ========================================
@@ -243,83 +303,165 @@ img {
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: var(--spacing-xs) var(--spacing-md);
-  font-size: 0.875rem;
-  background: var(--tag-bg);
-  color: var(--tag-text);
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: #4b5563;
+  border-radius: 50px;
+  border: 1px solid #e5e7eb;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
 }
 
 .tag:hover {
-  border-color: var(--accent);
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background: #eff6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
 .tag.active {
-  background: var(--accent);
-  color: var(--bg-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .tag-count {
-  margin-left: var(--spacing-xs);
-  font-size: 0.75rem;
-  opacity: 0.8;
+  margin-left: 6px;
+  font-size: 0.7rem;
+  opacity: 0.7;
+  background: rgba(0,0,0,0.08);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.tag.active .tag-count {
+  background: rgba(255,255,255,0.2);
 }
 
 /* ========================================
-   Posts List
+   Posts List - YONEX Style Grid
    ======================================== */
 .posts-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-lg);
 }
 
 .post-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  position: relative;
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  transition: all var(--transition-fast);
+  overflow: hidden;
+  aspect-ratio: 1 / 1.1;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.post-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--card-gradient-start, #f8fafc) 0%, var(--card-gradient-end, #f1f5f9) 100%);
+  z-index: 0;
+  transition: transform 0.4s ease;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-lg);
+}
+
+.post-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 1;
 }
 
 .post-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.post-card:hover::before {
+  transform: scale(1.1);
+}
+
+/* Card Color Variations - Light Theme */
+.post-card[data-category="스포츠"] { --card-gradient-start: #ecfdf5; --card-gradient-end: #d1fae5; }
+.post-card[data-category="개발"] { --card-gradient-start: #eff6ff; --card-gradient-end: #dbeafe; }
+.post-card[data-category="공지"] { --card-gradient-start: #fef3c7; --card-gradient-end: #fde68a; }
+.post-card[data-category="기술"] { --card-gradient-start: #f3e8ff; --card-gradient-end: #e9d5ff; }
+.post-card[data-category="리뷰"] { --card-gradient-start: #fce7f3; --card-gradient-end: #fbcfe8; }
+
+/* Card Content */
+.post-card-inner {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--spacing-lg);
+}
+
+.post-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.post-card-category {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #0969da;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(9, 105, 218, 0.1);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.post-card-date {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.post-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 .post-card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: var(--spacing-sm);
-  color: var(--text-primary);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1f2328;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .post-card-title a {
   color: inherit;
+  text-decoration: none;
 }
 
 .post-card-title a:hover {
-  color: var(--accent);
-}
-
-.post-card-meta {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  margin-bottom: var(--spacing-md);
+  color: #0969da;
 }
 
 .post-card-excerpt {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: var(--spacing-md);
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .post-card-tags {
@@ -329,15 +471,39 @@ img {
 }
 
 .post-card-tags .tag {
-  font-size: 0.75rem;
-  padding: 2px var(--spacing-sm);
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.05);
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+.post-card-tags .tag:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Card Icon/Visual */
+.post-card-visual {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  opacity: 0.2;
+  z-index: 0;
+  transition: all 0.4s ease;
+}
+
+.post-card:hover .post-card-visual {
+  transform: translate(-50%, -50%) scale(1.2);
+  opacity: 0.35;
 }
 
 /* Loading & No Results */
 .loading, .no-results {
   text-align: center;
   padding: var(--spacing-2xl);
-  color: var(--text-secondary);
+  color: #6b7280;
 }
 
 /* ========================================
@@ -355,26 +521,27 @@ img {
   display: inline-flex;
   align-items: center;
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: #6b7280;
   transition: color var(--transition-fast);
 }
 
 .back-link:hover {
-  color: var(--accent);
+  color: #3b82f6;
 }
 
 .post-article {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .post-header {
   margin-bottom: var(--spacing-xl);
   padding-bottom: var(--spacing-xl);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .post-title {
@@ -383,6 +550,7 @@ img {
   line-height: 1.3;
   margin-bottom: var(--spacing-md);
   letter-spacing: -0.02em;
+  color: #1f2328;
 }
 
 .post-meta {
@@ -390,13 +558,13 @@ img {
   align-items: center;
   gap: var(--spacing-md);
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: #6b7280;
   margin-bottom: var(--spacing-md);
 }
 
 .post-category {
-  background: var(--tag-bg);
-  color: var(--tag-text);
+  background: #dbeafe;
+  color: #1d4ed8;
   padding: 2px var(--spacing-sm);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
@@ -409,11 +577,12 @@ img {
 }
 
 /* ========================================
-   Post Content (Markdown)
+   Post Content (Markdown) - White Theme
    ======================================== */
 .post-content {
   font-size: 1.05rem;
   line-height: 1.8;
+  color: #374151;
 }
 
 .post-content h1,
@@ -427,21 +596,24 @@ img {
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: -0.01em;
+  color: #1f2328;
 }
 
 .post-content h1 { font-size: 1.875rem; }
-.post-content h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: var(--spacing-sm); }
+.post-content h2 { font-size: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: var(--spacing-sm); }
 .post-content h3 { font-size: 1.25rem; }
 .post-content h4 { font-size: 1.125rem; }
 
 .post-content p {
   margin-bottom: var(--spacing-md);
+  color: #374151;
 }
 
 .post-content ul,
 .post-content ol {
   margin-bottom: var(--spacing-md);
   padding-left: var(--spacing-xl);
+  color: #374151;
 }
 
 .post-content li {
@@ -451,17 +623,18 @@ img {
 .post-content blockquote {
   margin: var(--spacing-lg) 0;
   padding: var(--spacing-md) var(--spacing-lg);
-  border-left: 4px solid var(--accent);
-  background: var(--bg-tertiary);
+  border-left: 4px solid #3b82f6;
+  background: #f8fafc;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--text-secondary);
+  color: #6b7280;
   font-style: italic;
 }
 
 .post-content code {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  background: var(--code-bg);
+  background: #f3f4f6;
+  color: #be185d;
   padding: 2px 6px;
   border-radius: var(--radius-sm);
 }
@@ -475,26 +648,92 @@ img {
 .post-content pre code {
   display: block;
   padding: var(--spacing-lg);
-  background: var(--code-bg);
+  background: #1f2937;
+  color: #e5e7eb;
   font-size: 0.9rem;
   line-height: 1.6;
 }
 
 .post-content a {
+  color: #2563eb;
   text-decoration: underline;
   text-underline-offset: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.post-content a:hover {
+  color: #1d4ed8;
+}
+
+/* 브랜드 제목 링크 스타일 (h2 안의 링크) */
+.post-content h2 a[href^="https://www.yonex"],
+.post-content h2 a[href^="https://www.victorsport"],
+.post-content h2 a[href^="https://www.li-ning"] {
+  color: #1f2328;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.post-content h2 a[href^="https://www.yonex"]:hover,
+.post-content h2 a[href^="https://www.victorsport"]:hover,
+.post-content h2 a[href^="https://www.li-ning"]:hover {
+  color: #3b82f6;
+}
+
+/* 제목 옆 말풍선 - 항상 표시 */
+.post-content h2 a[href^="https://www.yonex"]::after,
+.post-content h2 a[href^="https://www.victorsport"]::after,
+.post-content h2 a[href^="https://www.li-ning"]::after {
+  content: '👆 클릭해주세요!';
+  position: relative;
+  display: inline-block;
+  margin-left: 12px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 20px;
+  vertical-align: middle;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+  animation: pulse-bubble 2s ease-in-out infinite;
+}
+
+/* 말풍선 애니메이션 */
+@keyframes pulse-bubble {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.5);
+  }
+}
+
+/* 호버 시 말풍선 변화 */
+.post-content h2 a[href^="https://www.yonex"]:hover::after,
+.post-content h2 a[href^="https://www.victorsport"]:hover::after,
+.post-content h2 a[href^="https://www.li-ning"]:hover::after {
+  content: '🔗 공식 사이트로 이동!';
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  animation: none;
+  transform: scale(1.1);
 }
 
 .post-content img {
   border-radius: var(--radius-md);
   margin: var(--spacing-lg) 0;
-  box-shadow: 0 4px 12px var(--shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .post-content hr {
   border: none;
   height: 1px;
-  background: var(--border);
+  background: #e5e7eb;
   margin: var(--spacing-xl) 0;
 }
 
@@ -507,23 +746,26 @@ img {
 .post-content th,
 .post-content td {
   padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid var(--border);
+  border: 1px solid #e5e7eb;
   text-align: left;
+  color: #374151;
 }
 
 .post-content th {
-  background: var(--bg-tertiary);
+  background: #f9fafb;
   font-weight: 600;
+  color: #1f2328;
 }
 
 /* ========================================
    Comments Section
    ======================================== */
 .comments-section {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .comments-title {
@@ -531,7 +773,8 @@ img {
   font-weight: 600;
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #e5e7eb;
+  color: #1f2328;
 }
 
 /* ========================================
@@ -540,15 +783,27 @@ img {
 .footer {
   margin-top: auto;
   padding: var(--spacing-xl) 0;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid #e5e7eb;
   text-align: center;
-  color: var(--text-muted);
+  color: #9ca3af;
   font-size: 0.875rem;
 }
 
 /* ========================================
    Responsive Design
    ======================================== */
+@media (max-width: 1200px) {
+  .posts-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .posts-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   html {
     font-size: 15px;
@@ -571,20 +826,27 @@ img {
     padding: var(--spacing-lg);
   }
   
-  .post-card-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-xs);
+  .posts-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .post-card {
+    aspect-ratio: 16 / 10;
+  }
+  
+  .post-card-title {
+    font-size: 1.2rem;
   }
 }
 
 /* ========================================
    Animations
    ======================================== */
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -592,14 +854,316 @@ img {
   }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 .post-card {
-  animation: fadeIn 0.3s ease forwards;
+  animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
 }
 
 .post-card:nth-child(1) { animation-delay: 0ms; }
-.post-card:nth-child(2) { animation-delay: 50ms; }
-.post-card:nth-child(3) { animation-delay: 100ms; }
-.post-card:nth-child(4) { animation-delay: 150ms; }
-.post-card:nth-child(5) { animation-delay: 200ms; }
+.post-card:nth-child(2) { animation-delay: 80ms; }
+.post-card:nth-child(3) { animation-delay: 160ms; }
+.post-card:nth-child(4) { animation-delay: 240ms; }
+.post-card:nth-child(5) { animation-delay: 320ms; }
+.post-card:nth-child(6) { animation-delay: 400ms; }
+.post-card:nth-child(7) { animation-delay: 480ms; }
+.post-card:nth-child(8) { animation-delay: 560ms; }
+
+/* Hover shine effect */
+.post-card::before {
+  background: linear-gradient(
+    135deg, 
+    var(--card-gradient-start, #1a1a2e) 0%, 
+    var(--card-gradient-end, #16213e) 50%,
+    rgba(255,255,255,0.05) 50%,
+    var(--card-gradient-end, #16213e) 100%
+  );
+  background-size: 200% 200%;
+}
+
+.post-card:hover::before {
+  animation: shimmer 1.5s ease-in-out;
+}
+
+/* ========================================
+   Accordion Styles
+   ======================================== */
+.post-intro {
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.accordion-item {
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.accordion-header {
+  width: 100%;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.accordion-header:hover {
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+}
+
+.accordion-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.accordion-icon {
+  font-size: 0.85rem;
+  color: #6b7280;
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 var(--spacing-xl);
+  background: #fff;
+}
+
+.accordion-item.open .accordion-content {
+  max-height: 2000px;
+  padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+}
+
+/* 아코디언 내부 콘텐츠 스타일 */
+.accordion-content h3 {
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.accordion-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--spacing-md) 0;
+}
+
+.accordion-content th,
+.accordion-content td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.accordion-content th {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+.accordion-content p {
+  color: #374151;
+  line-height: 1.7;
+}
+
+.accordion-content ul,
+.accordion-content ol {
+  padding-left: var(--spacing-lg);
+  color: #374151;
+}
+
+.accordion-content li {
+  margin-bottom: var(--spacing-xs);
+}
+
+/* 태그 클릭 가능 표시 */
+#post-tags .tag {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#post-tags .tag:hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* 브랜드별 아코디언 색상 */
+.accordion-item[data-section="yonex"] .accordion-header {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+}
+.accordion-item[data-section="yonex"]:hover .accordion-header,
+.accordion-item[data-section="yonex"].open .accordion-header {
+  background: linear-gradient(135deg, #fca5a5 0%, #f87171 100%);
+}
+.accordion-item[data-section="yonex"].open .accordion-title {
+  color: #7f1d1d;
+}
+
+.accordion-item[data-section="victor"] .accordion-header {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+}
+.accordion-item[data-section="victor"]:hover .accordion-header,
+.accordion-item[data-section="victor"].open .accordion-header {
+  background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+}
+.accordion-item[data-section="victor"].open .accordion-title {
+  color: #1e3a8a;
+}
+
+.accordion-item[data-section="lining"] .accordion-header {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+.accordion-item[data-section="lining"]:hover .accordion-header,
+.accordion-item[data-section="lining"].open .accordion-header {
+  background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+}
+.accordion-item[data-section="lining"].open .accordion-title {
+  color: #78350f;
+}
+
+.accordion-item[data-section="other"] .accordion-header {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+}
+.accordion-item[data-section="other"]:hover .accordion-header,
+.accordion-item[data-section="other"].open .accordion-header {
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%);
+}
+
+/* ========================================
+   UFC 아코디언 색상
+   ======================================== */
+/* 🏆 챔피언 소식 - 금색 */
+.accordion-item[data-section="champion"] .accordion-header {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde047 100%);
+}
+.accordion-item[data-section="champion"]:hover .accordion-header,
+.accordion-item[data-section="champion"].open .accordion-header {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+.accordion-item[data-section="champion"].open .accordion-title {
+  color: #78350f;
+}
+
+/* 📅 UFC 322 - 보라색 */
+.accordion-item[data-section="ufc322"] .accordion-header {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+}
+.accordion-item[data-section="ufc322"]:hover .accordion-header,
+.accordion-item[data-section="ufc322"].open .accordion-header {
+  background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%);
+}
+.accordion-item[data-section="ufc322"].open .accordion-title {
+  color: #4c1d95;
+}
+
+/* 🇶🇦 카타르 - 마룬 */
+.accordion-item[data-section="qatar"] .accordion-header {
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+}
+.accordion-item[data-section="qatar"]:hover .accordion-header,
+.accordion-item[data-section="qatar"].open .accordion-header {
+  background: linear-gradient(135deg, #f9a8d4 0%, #ec4899 100%);
+}
+.accordion-item[data-section="qatar"].open .accordion-title {
+  color: #831843;
+}
+
+/* 🔥 2026 빅매치 - 오렌지 */
+.accordion-item[data-section="bigmatch"] .accordion-header {
+  background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+}
+.accordion-item[data-section="bigmatch"]:hover .accordion-header,
+.accordion-item[data-section="bigmatch"].open .accordion-header {
+  background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
+}
+.accordion-item[data-section="bigmatch"].open .accordion-title {
+  color: #7c2d12;
+}
+
+/* 🌟 주목할 선수 - 시안 */
+.accordion-item[data-section="players"] .accordion-header {
+  background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%);
+}
+.accordion-item[data-section="players"]:hover .accordion-header,
+.accordion-item[data-section="players"].open .accordion-header {
+  background: linear-gradient(135deg, #67e8f9 0%, #22d3ee 100%);
+}
+.accordion-item[data-section="players"].open .accordion-title {
+  color: #164e63;
+}
+
+/* 📊 요약 - 인디고 */
+.accordion-item[data-section="summary"] .accordion-header {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+}
+.accordion-item[data-section="summary"]:hover .accordion-header,
+.accordion-item[data-section="summary"].open .accordion-header {
+  background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 100%);
+}
+.accordion-item[data-section="summary"].open .accordion-title {
+  color: #312e81;
+}
+
+/* ========================================
+   아코디언 내부 링크 버튼 스타일
+   ======================================== */
+.accordion-link-wrapper {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.accordion-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #ffffff;
+  color: #1f2937;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.accordion-link-btn:hover {
+  background: #f9fafb;
+  color: #3b82f6;
+}
 
 

@@ -61,8 +61,8 @@
    * 초기화
    */
   function init() {
-    // 저장된 테마 또는 기본값(dark) 적용
-    const savedTheme = getStoredTheme() || DARK;
+    // 저장된 테마 또는 기본값(light) 적용
+    const savedTheme = getStoredTheme() || LIGHT;
     applyTheme(savedTheme);
 
     // 테마 토글 버튼 이벤트 리스너
@@ -83,7 +83,7 @@
   window.ThemeManager = {
     toggle: toggleTheme,
     get current() {
-      return document.documentElement.getAttribute('data-theme') || DARK;
+      return document.documentElement.getAttribute('data-theme') || LIGHT;
     }
   };
 })();
