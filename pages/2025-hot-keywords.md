@@ -148,6 +148,18 @@ description: '2025년 대한민국을 달구는 핫 키워드 10가지를 정리
 
 ---
 
+## <a id="video"></a>📺 관련 영상
+
+<div class="video-section">
+<h3>🎬 트렌드 코리아 2025 해설 영상</h3>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/e4Lc-FoqaTk" title="김난도 교수가 들려주는 트렌드 코리아 2025 요약" allowfullscreen></iframe>
+</div>
+<p class="video-title">김난도 교수가 들려주는 트렌드 코리아 2025 요약</p>
+</div>
+
+---
+
 ## <a id="outro"></a>마무리 ✨
 
 2025년의 키워드를 한 문장으로 정리하면:

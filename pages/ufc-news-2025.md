@@ -126,6 +126,28 @@ UFC 최초의 카타르 대회!
 
 ---
 
+## 📺 관련 영상
+
+<div class="video-section">
+<h3>🎬 UFC 하이라이트 영상</h3>
+<div class="video-grid">
+<div>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/LA2j4Du1PHs" title="UFC 2025 Greatest Knockouts" allowfullscreen></iframe>
+</div>
+<p class="video-title">2025 최고의 KO 모음</p>
+</div>
+<div>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/mNJgZUt2Or0" title="UFC Greatest Fights" allowfullscreen></iframe>
+</div>
+<p class="video-title">UFC 역대 최고의 경기</p>
+</div>
+</div>
+</div>
+
+---
+
 ## 마무리
 
 2025년 UFC는 역대급 시즌이었습니다! 2026년에도 빅매치가 줄줄이 예정되어 있으니, UFC 팬들에게 기대되는 한 해가 될 것 같습니다! 🔥

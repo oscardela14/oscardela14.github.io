@@ -110,6 +110,28 @@ description: '2025년 출시된 배드민턴 브랜드별 신상품 라켓을 �
 
 ---
 
+## 📺 관련 영상
+
+<div class="video-section">
+<h3>🎬 배드민턴 라켓 리뷰 영상</h3>
+<div class="video-grid">
+<div>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/d0rvEAGFA7U" title="2025 배드민턴 라켓 비교 리뷰" allowfullscreen></iframe>
+</div>
+<p class="video-title">2025 가성비 라켓 8종 비교</p>
+</div>
+<div>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/ysAORvSFArA" title="요넥스 아스트록스 리뷰" allowfullscreen></iframe>
+</div>
+<p class="video-title">요넥스 아스트록스 100ZZ vs 99PRO</p>
+</div>
+</div>
+</div>
+
+---
+
 ## 마무리
 
 2025년에도 각 브랜드에서 다양한 신상품을 출시했습니다. 자신의 플레이 스타일에 맞는 라켓을 선택하여 더욱 즐거운 배드민턴 생활 되시길 바랍니다! 🏸

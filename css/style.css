@@ -1224,6 +1224,18 @@ img {
   color: #0c4a6e;
 }
 
+/* 공통 - 관련 영상 (빨강) */
+.accordion-item[data-section="video"] .accordion-header {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+}
+.accordion-item[data-section="video"]:hover .accordion-header,
+.accordion-item[data-section="video"].open .accordion-header {
+  background: linear-gradient(135deg, #fca5a5 0%, #f87171 100%);
+}
+.accordion-item[data-section="video"].open .accordion-title {
+  color: #7f1d1d;
+}
+
 /* ========================================
    아코디언 내부 링크 버튼 스타일
    ======================================== */
@@ -1251,6 +1263,71 @@ img {
 .accordion-link-btn:hover {
   background: #f9fafb;
   color: #3b82f6;
+}
+
+/* ========================================
+   유튜브 영상 임베드 스타일
+   ======================================== */
+.video-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 16px;
+  border: 2px solid #f59e0b;
+}
+
+.video-section h3 {
+  margin-bottom: 1rem;
+  color: #92400e;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 비율 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.video-container:last-child {
+  margin-bottom: 0;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.video-title {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #78350f;
+  text-align: center;
+  font-weight: 500;
 }
 
 

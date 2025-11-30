@@ -178,6 +178,8 @@
         else if (titleText.includes('실용소비') || titleText.includes('안티플렉스')) sectionId = 'practical';
         else if (titleText.includes('AI 시대') || titleText.includes('제로클릭')) sectionId = 'ai';
         else if (titleText.includes('한눈에') || titleText.includes('트렌드')) sectionId = 'summary';
+        // 공통 섹션
+        else if (titleText.includes('관련 영상') || titleText.includes('📺')) sectionId = 'video';
         else if (titleText.includes('마무리') || titleText.includes('결론')) sectionId = 'outro';
         else sectionId = 'section-' + sections.length;
 
@@ -289,6 +291,8 @@
         else if (tagText === '무해력') targetId = 'harmless';
         else if (tagText === '실용소비') targetId = 'practical';
         else if (tagText === 'AI시대') targetId = 'ai';
+        // 공통 태그
+        else if (tagText === '관련 영상') targetId = 'video';
         else if (tagText === '마무리') targetId = 'outro';
         
         if (targetId) {
