@@ -170,7 +170,15 @@
         else if (titleText.includes('2026') || titleText.includes('빅매치')) sectionId = 'bigmatch';
         else if (titleText.includes('주목') || titleText.includes('선수')) sectionId = 'players';
         else if (titleText.includes('요약') || titleText.includes('Summary')) sectionId = 'summary';
-        else if (titleText.includes('마무리') || titleText.includes('결론')) sectionId = 'conclusion';
+        // 2025 핫키워드 섹션
+        else if (titleText.includes('옴니보어') || titleText.includes('Omnivore')) sectionId = 'omnivore';
+        else if (titleText.includes('아보하') || titleText.includes('Aboha')) sectionId = 'aboha';
+        else if (titleText.includes('토핑경제') || titleText.includes('Topping')) sectionId = 'topping';
+        else if (titleText.includes('무해력') || titleText.includes('Harmless')) sectionId = 'harmless';
+        else if (titleText.includes('실용소비') || titleText.includes('안티플렉스')) sectionId = 'practical';
+        else if (titleText.includes('AI 시대') || titleText.includes('제로클릭')) sectionId = 'ai';
+        else if (titleText.includes('한눈에') || titleText.includes('트렌드')) sectionId = 'summary';
+        else if (titleText.includes('마무리') || titleText.includes('결론')) sectionId = 'outro';
         else sectionId = 'section-' + sections.length;
 
         currentSection = {
@@ -203,7 +211,7 @@
     if (sections.length > 0) {
       accordionHTML += '<div class="accordion-container">';
       sections.forEach((section, index) => {
-        const isOpen = index === 0 ? 'open' : '';
+        const isOpen = ''; // 모든 항목 닫힌 상태로 시작
         const hasLink = section.linkUrl ? true : false;
         
         // 링크 버튼은 콘텐츠 내부에 표시 (브랜드명 포함)
@@ -217,7 +225,7 @@
         
         accordionHTML += `
           <div class="accordion-item ${isOpen}" data-section="${section.id}">
-            <button class="accordion-header" aria-expanded="${index === 0}">
+            <button class="accordion-header" aria-expanded="false">
               <span class="accordion-title">${section.titleText}</span>
               <span class="accordion-icon">▼</span>
             </button>
@@ -266,7 +274,7 @@
         else if (tagText === '기타 주목할 브랜드') targetId = 'other';
         else if (tagText === '브랜드별 비교정리') targetId = 'compare';
         else if (tagText === '구매팁') targetId = 'tips';
-        else if (tagText === '기타') targetId = 'conclusion';
+        else if (tagText === '기타') targetId = 'other';
         // UFC 태그
         else if (tagText === '챔피언 소식') targetId = 'champion';
         else if (tagText === 'UFC 322') targetId = 'ufc322';
@@ -274,7 +282,14 @@
         else if (tagText === '2026년 빅매치') targetId = 'bigmatch';
         else if (tagText === '주목할 선수들') targetId = 'players';
         else if (tagText === 'UFC 요약') targetId = 'summary';
-        else if (tagText === '마무리') targetId = 'conclusion';
+        // 2025 핫키워드 태그
+        else if (tagText === '옴니보어') targetId = 'omnivore';
+        else if (tagText === '아보하') targetId = 'aboha';
+        else if (tagText === '토핑경제') targetId = 'topping';
+        else if (tagText === '무해력') targetId = 'harmless';
+        else if (tagText === '실용소비') targetId = 'practical';
+        else if (tagText === 'AI시대') targetId = 'ai';
+        else if (tagText === '마무리') targetId = 'outro';
         
         if (targetId) {
           const targetItem = document.querySelector(`.accordion-item[data-section="${targetId}"]`);
