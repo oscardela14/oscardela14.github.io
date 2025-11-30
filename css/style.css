@@ -174,9 +174,9 @@ img {
 .logo {
   font-size: 1.6rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #F0FDF4;
   letter-spacing: -0.03em;
-  text-shadow: 2px 2px 4px rgba(0,50,50,0.6);
+  text-shadow: 2px 2px 6px rgba(0,40,40,0.8);
   text-transform: uppercase;
   background: linear-gradient(135deg, #0969da 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
@@ -323,10 +323,11 @@ img {
 }
 
 .tag.active {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
-  border-color: transparent;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
 }
 
 .tag-count {
@@ -339,7 +340,8 @@ img {
 }
 
 .tag.active .tag-count {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.3);
+  color: #ffffff;
 }
 
 /* ========================================
