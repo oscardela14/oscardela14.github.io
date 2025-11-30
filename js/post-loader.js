@@ -359,13 +359,18 @@
   function loadGiscus() {
     if (!giscusContainer) return;
 
+    // 현재 게시글 파일명 가져오기 (각 게시글마다 별도 댓글창)
+    const fileName = getFileParam() || 'default';
+    const postTitle = document.getElementById('post-title')?.textContent || fileName;
+
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
     script.setAttribute('data-repo', 'oscardela14/oscardela14.github.io');
     script.setAttribute('data-repo-id', 'R_kgDOQeng7Q');
     script.setAttribute('data-category', 'General');
     script.setAttribute('data-category-id', 'DIC_kwDOQeng7c4CzJir');
-    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-mapping', 'specific');
+    script.setAttribute('data-term', fileName); // 파일명으로 각 게시글 구분
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '1');
