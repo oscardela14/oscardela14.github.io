@@ -394,6 +394,7 @@ img {
 .post-card[data-category="공지"] { --card-gradient-start: #fef3c7; --card-gradient-end: #fde68a; }
 .post-card[data-category="기술"] { --card-gradient-start: #f3e8ff; --card-gradient-end: #e9d5ff; }
 .post-card[data-category="리뷰"] { --card-gradient-start: #fce7f3; --card-gradient-end: #fbcfe8; }
+.post-card[data-category="트렌드"] { --card-gradient-start: #fef9c3; --card-gradient-end: #fde047; }
 
 /* Card Content */
 .post-card-inner {
@@ -1137,6 +1138,90 @@ img {
 }
 .accordion-item[data-section="summary"].open .accordion-title {
   color: #312e81;
+}
+
+/* 2025 핫키워드 - 옴니보어 (초록) */
+.accordion-item[data-section="omnivore"] .accordion-header {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+}
+.accordion-item[data-section="omnivore"]:hover .accordion-header,
+.accordion-item[data-section="omnivore"].open .accordion-header {
+  background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+}
+.accordion-item[data-section="omnivore"].open .accordion-title {
+  color: #14532d;
+}
+
+/* 2025 핫키워드 - 아보하 (민트) */
+.accordion-item[data-section="aboha"] .accordion-header {
+  background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+}
+.accordion-item[data-section="aboha"]:hover .accordion-header,
+.accordion-item[data-section="aboha"].open .accordion-header {
+  background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
+}
+.accordion-item[data-section="aboha"].open .accordion-title {
+  color: #134e4a;
+}
+
+/* 2025 핫키워드 - 토핑경제 (오렌지) */
+.accordion-item[data-section="topping"] .accordion-header {
+  background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+}
+.accordion-item[data-section="topping"]:hover .accordion-header,
+.accordion-item[data-section="topping"].open .accordion-header {
+  background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
+}
+.accordion-item[data-section="topping"].open .accordion-title {
+  color: #7c2d12;
+}
+
+/* 2025 핫키워드 - 무해력 (핑크) */
+.accordion-item[data-section="harmless"] .accordion-header {
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+}
+.accordion-item[data-section="harmless"]:hover .accordion-header,
+.accordion-item[data-section="harmless"].open .accordion-header {
+  background: linear-gradient(135deg, #f9a8d4 0%, #f472b6 100%);
+}
+.accordion-item[data-section="harmless"].open .accordion-title {
+  color: #831843;
+}
+
+/* 2025 핫키워드 - 실용소비 (골드) */
+.accordion-item[data-section="practical"] .accordion-header {
+  background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%);
+}
+.accordion-item[data-section="practical"]:hover .accordion-header,
+.accordion-item[data-section="practical"].open .accordion-header {
+  background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+}
+.accordion-item[data-section="practical"].open .accordion-title {
+  color: #713f12;
+}
+
+/* 2025 핫키워드 - AI시대 (보라) */
+.accordion-item[data-section="ai"] .accordion-header {
+  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+}
+.accordion-item[data-section="ai"]:hover .accordion-header,
+.accordion-item[data-section="ai"].open .accordion-header {
+  background: linear-gradient(135deg, #d8b4fe 0%, #c084fc 100%);
+}
+.accordion-item[data-section="ai"].open .accordion-title {
+  color: #581c87;
+}
+
+/* 2025 핫키워드 - 마무리 (블루) */
+.accordion-item[data-section="outro"] .accordion-header {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+}
+.accordion-item[data-section="outro"]:hover .accordion-header,
+.accordion-item[data-section="outro"].open .accordion-header {
+  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+}
+.accordion-item[data-section="outro"].open .accordion-title {
+  color: #0c4a6e;
 }
 
 /* ========================================
