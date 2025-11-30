@@ -370,7 +370,7 @@
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '1');
     script.setAttribute('data-input-position', 'bottom');
-    script.setAttribute('data-theme', window.ThemeManager?.current === 'light' ? 'light' : 'dark');
+    script.setAttribute('data-theme', 'light');
     script.setAttribute('data-lang', 'ko');
     script.crossOrigin = 'anonymous';
     script.async = true;
